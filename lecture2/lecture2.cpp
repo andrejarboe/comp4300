@@ -45,7 +45,41 @@ public:
     }
 };
 
-int main(int argc, char *argv[])
+class Course
+{
+    std::string m_name = "Course";
+    std::vector<Student> m_students;
+
+public:
+    Course() {}
+
+    Course(const std::string& name)
+        : m_name(name)
+    {
+    }
+
+    void addStudent(const Student& s)
+    {
+        m_students.push_back(s);
+
+    }
+
+    const std::vector<Student>& getStudents() const
+    {
+        return m_students;
+    }
+
+    void print () const
+    {
+        for (const auto& s : m_students)
+        {
+            s.print();
+        }
+    }
+};
+
+int
+main(int argc, char *argv[])
 {
     int age = 31;
     std::string first = "Andre";
@@ -102,6 +136,15 @@ int main(int argc, char *argv[])
     s4.print();
     s3.print();
     s1.print();
+
+    Course comp4300("COMP 4300");
+    comp4300.addStudent(s1);
+    comp4300.addStudent(s2);
+    comp4300.addStudent(s3);
+    comp4300.addStudent(s4);
+    comp4300.addStudent(Student ("Billly", "Bob", 3, 75.26));
+
+    comp4300.print();
 
     return 0;
 }
