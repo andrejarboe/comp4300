@@ -1,6 +1,45 @@
 #include <iostream>
 #include <vector>
 
+//put classes in their own h file
+class Student
+{
+    std::string m_first = "First";
+    std::string m_last = "Last";
+    int m_id = 0;
+    float m_avg = 0;
+
+
+public:
+    Student() {}
+
+    Student(std::string first, std::string last, int id, float avg)
+        : m_first (first)
+        , m_last (last)
+        , m_id (id)
+        , m_avg (avg)
+    {
+    }
+
+    int getAvg()
+    {
+        return m_avg;
+    }
+
+    int getID()
+    {
+        return m_id;
+    }
+    std::string getFirst()
+    {
+        return m_first;
+    }
+    std::string getLast()
+    {
+        return m_last;
+    }
+};
+
 int main(int argc, char *argv[])
 {
     int age = 31;
@@ -46,6 +85,8 @@ int main(int argc, char *argv[])
     {
         std::cout << a << std::endl;
     }
+
+    
 
     return 0;
 }
