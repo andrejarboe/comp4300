@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 // put classes in their own h file
 class Student
@@ -17,9 +18,9 @@ public:
     {
     }
 
-    //make this function const so we can not use it to change the student
-    //cont correctnest
-    int getAvg() const 
+    // make this function const so we can not use it to change the student
+    // cont correctnest
+    int getAvg() const
     {
         return m_avg;
     }
@@ -38,7 +39,7 @@ public:
     {
         return m_last;
     }
-    
+
     void print() const
     {
         std::cout << m_first << " " << m_last << " id: " << m_id << " avg: " << m_avg << std::endl;
@@ -53,33 +54,55 @@ class Course
 public:
     Course() {}
 
-    Course(const std::string& name)
+    Course(const std::string &name)
         : m_name(name)
     {
     }
 
-    void addStudent(const Student& s)
+    void addStudent(const Student &s)
     {
         m_students.push_back(s);
-
     }
 
-    const std::vector<Student>& getStudents() const
+    const std::vector<Student> &getStudents() const
     {
         return m_students;
     }
 
-    void print () const
+    void loadFromFile(const std::string &filename)
     {
-        for (const auto& s : m_students)
+        std::ifstream fin(filename);
+        std::string first, last;
+        int id;
+        float avg;
+        // std::string temp;
+
+        // while (fin >> temp)
+        // {
+        //     std::cout << temp << std::endl;
+        // }
+
+        while (fin >> first)
+        {
+            // fin >> last;
+            // fin >> id;
+            // fin >> avg;
+            fin >> last >> id >> avg;
+
+            addStudent(Student(first, last, id, avg));
+        }
+    }
+
+    void print() const
+    {
+        for (const auto &s : m_students)
         {
             s.print();
         }
     }
 };
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     int age = 31;
     std::string first = "Andre";
@@ -142,9 +165,14 @@ main(int argc, char *argv[])
     comp4300.addStudent(s2);
     comp4300.addStudent(s3);
     comp4300.addStudent(s4);
-    comp4300.addStudent(Student ("Billly", "Bob", 3, 75.26));
+    comp4300.addStudent(Student("Billly", "Bob", 3, 75.26));
 
     comp4300.print();
+
+    std::cout << "***********************" << std::endl;
+    Course c("COMP 4567");
+    c.loadFromFile("students.txt");
+    c.print();
 
     return 0;
 }
